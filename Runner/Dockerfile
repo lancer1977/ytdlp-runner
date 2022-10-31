@@ -1,4 +1,4 @@
-FROM polyhydra-dotnet6
+FROM lancer1977/polyhydra-dotnet6
 
 #LIBRARIES 
 RUN apt update && apt-get install -y yt-dlp python3-brotli wget 
