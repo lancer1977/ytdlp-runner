@@ -38,7 +38,7 @@ public static async Task<Settings> GetSettings()
         }
         else
         {
-            setting.Format = "%(channel)s/%(playlist)/%(title)s.%(ext)s";
+            setting.Format = "%(channel)s/%(playlist)s/%(title)s.%(ext)s";
             setting.MediaOptions = "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best";
             setting.Sources = new List<string>() { "https://www.youtube.com/user/PolyhydraGames/videos" };
             setting.DestinationFolder = FileHelpers.TempDirectory;
