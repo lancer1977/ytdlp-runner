@@ -1,9 +1,7 @@
-FROM ubuntu:latest
+FROM polyhydra-dotnet6
 
 #LIBRARIES 
-RUN apt update && apt install -y yt-dlp python3-brotli wget
-RUN apt install -y dotnet6 
-RUN apt install -y dotnet-runtime-6.0
+RUN apt update && apt-get install -y yt-dlp python3-brotli wget 
 
 #ytdlrunner
 RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlrunner_0.0.4-4_all.deb
@@ -13,13 +11,13 @@ RUN chmod 777 /usr/bin/ytdlrunner
 
 #USER SETUP
 #RUN addgroup -S appgroup 
-RUN adduser runner
-USER runner
-WORKDIR /home/runner
+#RUN adduser runner
+#USER runner
+#WORKDIR /home/runner
 
 #DOTNET INSTALL
 #RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
 #RUN chmod +x dotnet-install.sh  
 #RUN ./dotnet-install.sh -c Current
 
-ENTRYPOINT ["ytdlrunner"]
+CMD /usr/bin/ytdlrunner
