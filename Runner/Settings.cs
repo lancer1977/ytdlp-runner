@@ -16,7 +16,7 @@ public class Settings
     public string GetArguments(string source)
     {
         // $"-o {format} -i   --cookies youtube.com_cookies.txt {item}");
-        return $"-P {DestinationFolder.Wrap()} -o {Format.Wrap()} {EmbedThumbnailArg()} {EmbedMetaArg()} -i --download-archive {FileHelpers.MergePath("videoarchive.txt").Wrap()} -f {MediaOptions} --cookies {FileHelpers.MergePath("cookies.txt").Wrap()} {source}";
+        return $"-P {DestinationFolder} -o {Format.Wrap()} {EmbedThumbnailArg()} {EmbedMetaArg()} -i --download-archive {FileHelpers.MergePath("videoarchive.txt").Wrap()} -f {MediaOptions} --cookies {FileHelpers.MergePath("cookies.txt").Wrap()} {source}";
     }
     public string EmbedMetaArg()
     {
