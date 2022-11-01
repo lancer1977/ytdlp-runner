@@ -4,7 +4,7 @@ ARG user=appuser
 ARG group=appuser
 ARG uid=1000
 ARG gid=1000
-RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh ${user}
+RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh -m ${user}
 
 #LIBRARIES 
 RUN apt-get update && apt-get install -y yt-dlp python3-brotli wget cron dpkg
@@ -22,8 +22,8 @@ RUN chmod  u+s /usr/sbin/cron
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log     
  
-
-COPY --chown=${user}:${user} . .
+#this copies files in and marks them for the added user name
+#COPY --chown=${user}:${user} . .
 
 USER ${user}
 
