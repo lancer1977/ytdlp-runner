@@ -6,6 +6,7 @@ ARG uid=1000
 ARG gid=1000
 ARG cron="0 3 * * *"
 RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh -m ${user}
+WORKDIR /home/${user}
 
 #LIBRARIES 
 RUN apt-get update && apt-get install -y yt-dlp python3-brotli wget cron dpkg
