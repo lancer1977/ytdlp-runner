@@ -4,17 +4,16 @@ ARG user=appuser
 ARG group=appuser
 ARG uid=1000
 ARG gid=1000
+ARG cron="0 3 * * *"
 RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh -m ${user}
 
 #LIBRARIES 
 RUN apt-get update && apt-get install -y yt-dlp python3-brotli wget cron dpkg
-
-#ytdlrunner
 RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlrunner_0.0.4-4_all.deb
 RUN apt install -f ./ytdlrunner_0.0.4-4_all.deb
  
-RUN echo "0 3 * * * ytdlrunner >> /var/log/cron.log 2>&1" >> /etc/cron.d/restart-cron 
- 
+RUN echo "${cron} ytdlrunner >> /var/log/cron.log 2>&1" >> /etc/cron.d/restart-cron 
+RUN cat /etc/cron.d/restart-cron
 #Give the necessary rights to the user to run the cron
 RUN crontab -u ${user} /etc/cron.d/restart-cron 
 RUN chmod  u+s /usr/sbin/cron
