@@ -8,10 +8,11 @@ RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytd
 RUN apt install -f ./ytdlrunner_0.0.4-4_all.deb
 RUN chown root /usr/bin/ytdlrunner
 RUN chmod 777 /usr/bin/ytdlrunner
+RUN mkdir /root/.ytdlrunner && mkdir /root/YTOutput
+RUN chmod 777 /root/.ytdlrunner && chmod 777 /root/YTOutput
  
 # Copy hello-cron file to the cron.d directory
-COPY ytdlp-cron /etc/cron.d/ytdlp-cron
-RUN cat /etc/cron.d/ytdlp-cron
+COPY ytdlp-cron /etc/cron.d/ytdlp-cron 
 # Give execution rights on the cron job
 RUN chmod 0644 /etc/cron.d/ytdlp-cron
 
