@@ -1,4 +1,4 @@
-dotnet publish Runner/*.csproj --configuration Release -r linux-x64 -p:PublishSingleFile=true --self-contained true --output tmp
+dotnet publish Runner/*.csproj --configuration Release -r linux-x64 -p:PublishSingleFile=true --self-contained false --output tmp
 
 workdir=~/ytdlp-runner_0.0.$1-$1_all
 echo $workdir
@@ -7,7 +7,7 @@ cp tmp/ytdlp-runner $workdir/usr/bin/ytdlp-runner
 
 mkdir -p $workdir/DEBIAN
 chmod 755 $workdir/DEBIAN
-touch tmpcontrol  
+touch tmpcontrol
 echo "Package: ytdlp-runner" >> tmpcontrol
 echo "Version: 0.0.$1" >> tmpcontrol
 echo "Maintainer: lancer1977@gmail.com" >> tmpcontrol

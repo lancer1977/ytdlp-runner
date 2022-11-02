@@ -264,3 +264,4 @@ SpellingTest/Droid/Resources/Resource.designer.cs
 *.droidres/
 tmp/
 */DEBIAN/control
+*.deb
