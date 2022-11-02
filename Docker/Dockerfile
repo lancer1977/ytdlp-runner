@@ -16,7 +16,7 @@ WORKDIR /home/${user}
 
 #LIBRARIES 
 RUN apt-get update && apt-get install -y yt-dlp python3-brotli wget cron dpkg nano
-RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlp-runner_0.0.${appversion}-${appversion}_all.deb -o ytdlp-runner.deb
+RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlp-runner_0.0.${appversion}-${appversion}_all.deb -O ytdlp-runner.deb
 RUN apt install -f ./ytdlp-runner.deb
  
  # Create the log file to be able to run tail
