@@ -262,3 +262,5 @@ __pycache__/
 *.pyc
 SpellingTest/Droid/Resources/Resource.designer.cs
 *.droidres/
+tmp/
+*/DEBIAN/control

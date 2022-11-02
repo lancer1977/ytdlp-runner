@@ -1,7 +1,0 @@
-Package: yt-dl-runner
-Version: 0.0.1
-Maintainer: lancer1977@gmail.com
-Depends: yt-dlp,python3-brotli
-Architecture: all
-Homepage: http://polyhydragames.com
-Description: A program that runs multiple calls to yt-dlp to grab multiple shows.
