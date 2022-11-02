@@ -9,14 +9,14 @@ ARG uid=1000
 ARG gid=1000
 ARG cron_arg='0 3 * * *'
 ARG appversion_arg=8
-ENV cron = ${cron_arg}
+ENV cron=${cron_arg}
 ENV appversion=${appversion_arg}
 RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh -m ${user}
 WORKDIR /home/${user}
 
 #LIBRARIES 
 RUN apt-get update && apt-get install -y yt-dlp python3-brotli wget cron dpkg nano
-RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlrunner_0.0.${appversion}-${appversion}_all.deb -o ytdlp-runner.deb
+RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlp-runner_0.0.${appversion}-${appversion}_all.deb -o ytdlp-runner.deb
 RUN apt install -f ./ytdlp-runner.deb
  
  # Create the log file to be able to run tail
@@ -30,19 +30,4 @@ RUN cat /etc/cron.d/restart-cron
 RUN chmod 0644 /etc/cron.d/restart-cron
 RUN crontab /etc/cron.d/restart-cron 
 
-#RUN chmod  u+s /usr/sbin/cron
-  
-    
- 
-#this copies files in and marks them for the added user name
-#COPY --chown=${user}:${user} entrypoint.sh .
-
-#USER ${user}
-
-# Run the command on container startup
-#CMD cron && tail -f /var/log/cron.log
-
-
-#ENTRYPOINT [ "./entrypoint.sh" ]
-#CMD /usr/bin/ytdlrunner
 CMD ["cron","-f", "-l", "2"]
