@@ -1,2 +1,4 @@
 #!/bin/sh
-echo "Current date and time is " "$(date +%D-%H:%M)" > $(date)
+echo ENTRY RUNNING
+cron -L 15
+tail -f /var/log/cron.log

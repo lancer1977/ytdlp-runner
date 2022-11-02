@@ -9,16 +9,16 @@ RUN touch /var/log/cron.log
 COPY crontab /etc/cron.d/entry
 RUN chmod 644 /etc/cron.d/entry
 RUN crontab   /etc/cron.d/entry
-COPY entry.sh entry.sh
-# Giving executable permission to the script file.
+COPY entry.sh entry.sh 
 RUN chmod +x entry.sh
 
+COPY runner.sh runner.sh 
+RUN chmod +x runner.sh
+RUN crontab -l
 # Adding crontab to the appropiate location
 #RUN crontab -l | { cat; echo "* * * * * root sh entrypoint.sh"; } | crontab -
  
 HEALTHCHECK --interval=5s --timeout=3s \
-    CMD ps aux | grep '[c]ron' || exit 1
+    CMD ps aux | grep '[c]ron' || exit 1 
 
-RUN cron 
-
-ENTRYPOINT cron -L 15 && tail -f /var/log/cron.log
+ENTRYPOINT entry.sh

@@ -1,1 +1,1 @@
-* * * * * sh /root/entry.sh >/proc/self/fd/1 2>/var/error.log
+* * * * * sh /root/runner.sh >/proc/self/fd/1 2>/var/error.log

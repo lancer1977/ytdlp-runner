@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "YTDLRunner": {
+    "crontest": {
       "commandName": "Project"
     },
     "Docker": {
