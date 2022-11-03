@@ -1,13 +1,9 @@
-echo "Start cron"
-#cron
+#!/bin/sh
+echo "Updating Cron"
+/root/updatecron.sh
 echo "cron started"
 
 # Run forever
 #tail -f /dev/null
-#!/bin/sh
 
-env >> /etc/environment
-
-# execute CMD
-echo "$@"
-exec "$@"
+cron -f >> /var/log/cron.log
