@@ -1,29 +1,34 @@
 FROM ubuntu
 
-RUN apt update
-RUN apt-get install -y dotnet6 
-RUN apt-get install -y dotnet-runtime-6.0
+#install dependencies#LIBRARIES 
+RUN apt-get update
+RUN apt-get install -y dotnet6 dotnet-runtime-6.0
+RUN apt-get install -y yt-dlp python3-brotli wget cron dpkg nano 
+#Set timezone
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 ARG user=appuser
 ARG group=appuser
 ARG uid=1000
 ARG gid=1000
-ARG cron_arg='0 3 * * *'
-ARG appversion_arg=8
-ENV cron=${cron_arg}
-ENV appversion=${appversion_arg}
+ENV CRONDEF='0 3 * * *'
+ENV APPVERSION=8
+ENV APPNAME=ytdlp-runner
+ENV DEBUG=true
 RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh -m ${user}
 WORKDIR /home/${user}
 
-#LIBRARIES 
-RUN apt-get update && apt-get install -y yt-dlp python3-brotli wget cron dpkg nano
-RUN wget  https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlp-runner_0.0.${appversion}-${appversion}_all.deb -O ytdlp-runner.deb
+
+RUN wget https://github.com/lancer1977/ytdlp-runner/releases/download/alpha/ytdlp-runner_0.0.${APPVERSION}-${APPVERSION}_all.deb -O ytdlp-runner.deb
 RUN apt install -f ./ytdlp-runner.deb
  
  # Create the log file to be able to run tail
 RUN touch /var/log/cron.log 
 RUN rm -rf /etc/cron.*/*
-RUN echo "${cron} su ${user} -c ytdlp-runner >/proc/1/fd/1 2>/proc/1/fd/2" >> /etc/cron.d/restart-cron
-#RUN echo "* * * * * su root -c echo "${CUSTOM_ENV_VAR}" >/proc/1/fd/1 2>/proc/1/fd/2" >> /etc/cron.d/restart-cron
+RUN echo "${CRONDEF} su ${user} -c ${APPNAME} >/proc/1/fd/1 2>/proc/1/fd/2" >> /etc/cron.d/restart-cron
+RUN 
+RUN if [[ "$DEBUG" -eq "true" ]] ; then echo "* * * * * echo Its hammerin time! $(date) >/proc/1/fd/1 2>/proc/1/fd/2" >> /etc/cron.d/restart-cron ; fi
 RUN echo \ >> /etc/cron.d/restart-cron 
 RUN cat /etc/cron.d/restart-cron
 #Give the necessary rights to the user to run the cron

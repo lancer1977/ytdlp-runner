@@ -5,7 +5,7 @@ using YTDLP.Service;
 
 var destinationDirectory = FileHelpers.TempDirectory; 
 
-Console.WriteLine($"Edit config at {FileHelpers.AppDirectory}");
+Console.WriteLine($"Running version {Constants.AppVersion}");
 var settings = await Settings.GetSettings();
 
 var channels = settings.Sources;

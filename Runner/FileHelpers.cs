@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace YTDLP.Service;
 
+public static class Constants{
+    public static int AppVersion => 11;
+}
 public static class FileHelpers
 {
     public static string GetDirectorySafe(string path)
