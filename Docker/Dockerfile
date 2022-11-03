@@ -17,9 +17,12 @@ ENV appname=ytdlp-runner
 ENV debug=true
 RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh -m ${user}
 WORKDIR /root
+
 COPY entrypoint.sh /root
+RUN chmod +x /root/entrypoint.sh
 COPY updatecron.sh /root
- 
+RUN chmod +x /root/updatecron.sh
+
  # Create the log file to be able to run tail
 RUN touch /var/log/cron.log 
 RUN rm -rf /etc/cron.*/*
