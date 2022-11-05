@@ -18,7 +18,7 @@ public class Settings
     public List<string>? Sources { get; set; }
 
     // Information on the channels and if to operate as if the majority have been downloaded already.
-    public List<Playlist> PlayLists { get; set; }
+    public List<Playlist> PlayLists { get; set; } = new List<Playlist>();
 
     /// Where to save temporarily
     public string OutputFolder { get; set; }
