@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace YTDLP.Service;
 
@@ -27,6 +28,7 @@ public static class FileHelpers
     {
         return Path.Combine(AppDirectory, fileName);
     }
+ 
     public static async Task<bool> ExecuteProcess(string filename, string arguments)
     {
 
@@ -35,13 +37,20 @@ public static class FileHelpers
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 Arguments = arguments,
-                FileName = filename
+                FileName = filename,
+                RedirectStandardOutput = true
             };
 
             var process = Process.Start(startInfo);
-            await process?.WaitForExitAsync();
-            var code = process?.ExitCode;
-            return code == 0;
+            if (process == null) return false;
+             
+            
+            await process.WaitForExitAsync();
+            var text = await process.StandardOutput.ReadToEndAsync();
+            Console.WriteLine(text);
+            var code = process.ExitCode; 
+
+            return code >= 0 && text.Contains("Finished downloading playlist");
         }
         catch (Exception ex)
         {
@@ -54,7 +63,7 @@ public static class FileHelpers
     public static void MoveInner(string sourceDirName, string destDirName, bool moveSubDirs, bool pruneDirectory = false)
     {
         var dir = new DirectoryInfo(sourceDirName);
-        var dirs = dir.GetDirectories();
+
 
         // If the source directory does not exist, throw an exception
         if (!dir.Exists)
@@ -85,7 +94,7 @@ public static class FileHelpers
         if (!moveSubDirs)
             return;
 
-        foreach (var subdir in dirs)
+        foreach (var subdir in dir.GetDirectories())
         {
             // Create the subdirectory
             var temppath = Path.Combine(destDirName, subdir.Name);
