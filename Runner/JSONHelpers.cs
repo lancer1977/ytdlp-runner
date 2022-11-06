@@ -12,7 +12,7 @@ public static class JSONHelpers
 
     public static string ToJSON<T>(this T obj)
     {
-        var result = JsonSerializer.Serialize(obj);
+        var result = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true });
         return result;
     }
 }
