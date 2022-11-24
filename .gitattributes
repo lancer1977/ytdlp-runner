@@ -1,0 +1,3 @@
+*.c         eol=lf
+*.php       eol=lf
+*.sh       eol=lf
