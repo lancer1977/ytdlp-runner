@@ -31,3 +31,9 @@ Setting Files: %AppData$\.ytdlprunner
     Soon! 
 # Contact Us
 lancer1977@gmail.com
+
+
+## 📖 Documentation
+Detailed documentation can be found in the following sections:
+- [Feature Index](./docs/features/README.md)
+- [Core Capabilities](./docs/features/core-capabilities.md)
